@@ -1,46 +1,34 @@
 package com.example.jaewonkim.pubsubimage;
 
+import android.app.ActivityGroup;
+import android.app.TabActivity;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.EditText;
-import android.widget.ListView;
+import android.widget.TabHost;
 
-public class MainActivity extends AppCompatActivity {
-
-    ListView listView;
-    ListViewAdapter adapter;
-
-    EditText topicEditText;
+@SuppressWarnings("deprecation")
+public class MainActivity extends TabActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        adapter = new ListViewAdapter();
-        listView = (ListView)findViewById(R.id.listview1);
-        listView.setAdapter(adapter);
+        TabHost tab = (TabHost) findViewById(android.R.id.tabhost);
+        //tab.setup(this.getLocalActivityManager());
+        //tab.setup();
 
-        topicEditText = (EditText)findViewById(R.id.TopicEditText);
+        TabHost.TabSpec spec1 = tab.newTabSpec("Subscribe");
+        spec1.setIndicator("Subscribe");
+        spec1.setContent(new Intent(this, SubActivity.class));
+        tab.addTab(spec1);
 
-//        adapter.addItem("Topic A");
-//        adapter.addItem("Topic B");
-//        adapter.addItem("Topic C");
-
+        TabHost.TabSpec spec2 = tab.newTabSpec("Publish");
+        spec2.setIndicator("Publish");
+        spec2.setContent(new Intent(this, PubActivity.class));
+        tab.addTab(spec2);
 
     }
 
-    public void addSubscTopic(View v) {
-        String topicName = topicEditText.getText().toString();
-        topicName = topicName.replaceAll(" ", "");
-        adapter.addItem(topicName);
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                adapter.notifyDataSetChanged();
-            }
-        });
-        topicEditText.setText("");
-    }
 }

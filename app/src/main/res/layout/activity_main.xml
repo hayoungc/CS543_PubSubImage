@@ -10,36 +10,28 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.jaewonkim.pubsubimage.MainActivity">
 
-    <LinearLayout
+
+    <TabHost
+        android:id="@android:id/tabhost"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:orientation="horizontal">
+        android:layout_height="match_parent">
 
-        <TextView
-            android:layout_width="0dp"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="2"
-            android:text="Topic"
-            android:textSize="13pt"
-            android:gravity="center_vertical"/>
-        <EditText
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="4"
-            android:id="@+id/TopicEditText"/>
-        <Button
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@drawable/add_topic"
-            android:id="@+id/addSubscTopic"
-            android:onClick="addSubscTopic"/>
+            android:orientation="vertical">
 
-    </LinearLayout>
+            <TabWidget
+                android:id="@android:id/tabs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
-    <ListView
-        android:id="@+id/listview1"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+            <FrameLayout
+                android:id="@android:id/tabcontent"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
+            </FrameLayout>
+        </LinearLayout>
+    </TabHost>
 </LinearLayout>
