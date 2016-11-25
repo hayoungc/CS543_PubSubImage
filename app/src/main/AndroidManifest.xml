@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.example.jaewonkim.pubsubimage">
 
@@ -16,6 +17,7 @@
         </activity>
         <activity android:name=".PubActivity"></activity>
         <activity android:name=".SubActivity"></activity>
+        <activity android:name=".FeedActivity"></activity>
     </application>
 
 </manifest>
