@@ -5,7 +5,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
+import java.net.URL;
 import java.util.LinkedList;
 
 /**
@@ -18,11 +20,13 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
     public class ViewHolder extends RecyclerView.ViewHolder {
         CardView mCardView;
         ImageView mImage;
+        TextView mText;
 
         public ViewHolder(CardView cv) {
             super(cv);
             mCardView = cv;
             mImage = (ImageView) cv.findViewById(R.id.feed_image_view);
+            mText = (TextView) cv.findViewById(R.id.feed_text_view);
         }
     }
 
@@ -49,8 +53,20 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
             // position is out of range: do some workaround here.
             return;
         }
+
         FeedPost post = mPosts.get(position);
-        // TODO: Replace the contents of the view with this element.
+
+        holder.mText.setText(post.content);
+
+        ImageView imgView = holder.mImage;
+        URL imageUrl = post.imageUrl;
+        if (BitmapWorkerTask.cancelPotentialWork(imageUrl, imgView)) {
+            final BitmapWorkerTask task = new BitmapWorkerTask(imgView);
+            final AsyncDrawable asyncDrawable =
+                    new AsyncDrawable(imgView.getResources(), null, task);
+            imgView.setImageDrawable(asyncDrawable);
+            task.execute(imageUrl);
+        }
     }
 
     @Override

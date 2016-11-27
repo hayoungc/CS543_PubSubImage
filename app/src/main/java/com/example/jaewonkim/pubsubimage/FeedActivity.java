@@ -1,9 +1,11 @@
 package com.example.jaewonkim.pubsubimage;
 
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.DisplayMetrics;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -52,6 +54,17 @@ public class FeedActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_feed);
+
+        // Hide the action bar.
+        ActionBar ab = getSupportActionBar();
+        if (null != ab) {
+            ab.hide();
+        }
+
+        // Set the sampling width for the feed images.
+        DisplayMetrics metrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(metrics);
+        BitmapWorkerTask.setReqWidth(metrics.widthPixels);
 
         mPosts = new LinkedList<>();
 
