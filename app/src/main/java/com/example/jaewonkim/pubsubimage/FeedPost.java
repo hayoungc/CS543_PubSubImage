@@ -6,6 +6,7 @@ import org.json.JSONObject;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.HashMap;
 import java.util.UUID;
 
 /**
@@ -17,6 +18,8 @@ public class FeedPost {
     private static final String JSON_NAME_ID = "id";
     private static final String JSON_NAME_IMAGE_URL = "image_url";
     private static final String JSON_NAME_CONTENT = "content";
+
+    private static final HashMap<UUID, FeedPost> postMap = new HashMap<>();
 
     public UUID id;
     public URL imageUrl;
@@ -53,5 +56,16 @@ public class FeedPost {
             Log.e(TAG, "failed to convert feed post to JSON object", e);
             return null;
         }
+    }
+
+    public static boolean hasReceived(FeedPost post) {
+        return postMap.containsKey(post.id);
+    }
+
+    public static void receive(FeedPost post) {
+        if (null == post.id) {
+            return;
+        }
+        postMap.put(post.id, post);
     }
 }
