@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">PubSubImage</string>
     <string name="tab_feed">Feed</string>
+    <string name="toast_mqtt_fail">Failed to connect to the MQTT broker.</string>
 </resources>
