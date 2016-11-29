@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ListView;
+import org.eclipse.paho.android.service.MqttAndroidClient;
+import org.eclipse.paho.client.mqttv3.*;
 
 public class SubActivity extends Activity{
 
@@ -35,6 +37,25 @@ public class SubActivity extends Activity{
     public void addSubscTopic(View v) {
         String topicName = topicEditText.getText().toString();
         topicName = topicName.replaceAll(" ", "");
+
+        try {
+            MqttAndroidClient mqttAndroidClient = MqttClientManager.getMqttClient();
+            mqttAndroidClient.subscribe(topicName, 0, null, new IMqttActionListener() {
+                @Override
+                public void onSuccess(IMqttToken asyncActionToken) {
+                    System.out.println("LOG: Subscribed!");
+                }
+
+                @Override
+                public void onFailure(IMqttToken asyncActionToken, Throwable exception) {
+                    System.out.println("LOG: Failed to subscribed!");
+                }
+            });
+        } catch (MqttException ex){
+            System.err.println("Exception whilst subscribing");
+            ex.printStackTrace();
+        }
+
         adapter.addItem(topicName);
         runOnUiThread(new Runnable() {
             @Override

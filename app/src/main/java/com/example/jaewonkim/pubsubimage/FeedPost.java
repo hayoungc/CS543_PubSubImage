@@ -31,6 +31,16 @@ public class FeedPost {
         this.content = content;
     }
 
+    public FeedPost(UUID id, String imageUrl, String content) {
+        try {
+            this.id = id;
+            this.imageUrl = new URL(imageUrl);
+            this.content = content;
+        } catch (MalformedURLException e) {
+            ;
+        }
+    }
+
     // Converts a JSONObject into a new feed post object.
     public FeedPost(JSONObject json) {
         try {

@@ -20,7 +20,7 @@ public class MainActivity extends TabActivity {
     private static String TAB_TAG_FEED = "Feed";
 
     // TODO: Update this.
-    private static String MQTT_SERVER_URI = "tcp://localhost:1883";
+    private static String MQTT_SERVER_URI = "tcp://iot.eclipse.org:1883";
 
     private MqttAndroidClient mMqttClient;
     private TabHost mTab;
@@ -69,11 +69,12 @@ public class MainActivity extends TabActivity {
         mPostQueue = new LinkedList<>();
 
         // Establish a connection to the MQTT broker and set the callback.
-        String clientId = MqttClient.generateClientId();
-        mMqttClient = new MqttAndroidClient(getApplicationContext(), MQTT_SERVER_URI, clientId);
+        MqttClientManager.setContext(getApplicationContext());
+        mMqttClient = MqttClientManager.getMqttClient();
         try {
             mMqttClient.connect();
             mMqttClient.setCallback(new MainMqttCallback());
+            Toast.makeText(this, R.string.toast_mqtt_success, Toast.LENGTH_SHORT).show();
         } catch (MqttException e) {
             Log.e(TAG, "failed to connect to the MQTT broker", e);
             Toast.makeText(this, R.string.toast_mqtt_fail, Toast.LENGTH_SHORT).show();
@@ -124,6 +125,7 @@ public class MainActivity extends TabActivity {
         public void messageArrived(String topic, MqttMessage message) throws Exception {
             byte[] payload = message.getPayload();
             String jsonStr = new String(payload, "UTF8");
+            System.out.println("Arrived Message: " + jsonStr);
             JSONObject json = new JSONObject(jsonStr);
             FeedPost post = new FeedPost(json);
             if (!FeedPost.hasReceived(post)) {
