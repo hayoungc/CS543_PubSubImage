@@ -19,9 +19,6 @@ public class MainActivity extends TabActivity {
 
     private static String TAB_TAG_FEED = "Feed";
 
-    // TODO: Update this.
-    private static String MQTT_SERVER_URI = "tcp://iot.eclipse.org:1883";
-
     private MqttAndroidClient mMqttClient;
     private TabHost mTab;
     private LinkedList<FeedPost> mPostQueue;
