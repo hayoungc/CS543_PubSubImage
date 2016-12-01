@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">PubSubImage</string>
+    <string name="tab_subscribe">Subscribe</string>
+    <string name="tab_publish">Publish</string>
     <string name="tab_feed">Feed</string>
     <string name="toast_mqtt_success">Sccuess to connect to the MQTT broker.</string>
     <string name="toast_mqtt_fail">Failed to connect to the MQTT broker.</string>

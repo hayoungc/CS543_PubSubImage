@@ -43,12 +43,15 @@ public class ListViewAdapter  extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return listViewItemList.size();
+        return Math.max(listViewItemList.size(), 8);
     }
 
     @Override
     public Object getItem(int position) {
-        return listViewItemList.get(position);
+        if (position < listViewItemList.size())
+            return listViewItemList.get(position);
+        else
+            return new ListViewItem();
     }
 
     @Override
@@ -70,49 +73,58 @@ public class ListViewAdapter  extends BaseAdapter {
         final Button TopicActivation = (Button) convertView.findViewById(R.id.TopicActivation);
         final Button TopicUnsubsc = (Button) convertView.findViewById(R.id.TopicUnsubsc);
 
-        // Data Set(listViewItemList)에서 position에 위치한 데이터 참조 획득
-        final ListViewItem listViewItem = listViewItemList.get(position);
-        //titleTextView.setSingleLine(true);
+        if (position < listViewItemList.size()) {
+            // Data Set(listViewItemList)에서 position에 위치한 데이터 참조 획득
+            final ListViewItem listViewItem = listViewItemList.get(position);
+            //titleTextView.setSingleLine(true);
 
-        // 아이템 내 각 위젯에 데이터 반영
-        titleTextView.setText(listViewItem.getTopicName());
+            // 아이템 내 각 위젯에 데이터 반영
+            titleTextView.setText(listViewItem.getTopicName());
 
-        if (viewType == LISTVIEW_TYPE_PUBLISH) {
+            if (viewType == LISTVIEW_TYPE_PUBLISH) {
+                TopicActivation.setVisibility(View.INVISIBLE);
+                TopicUnsubsc.setVisibility(View.INVISIBLE);
+            } else {
+                TopicActivation.setVisibility(View.VISIBLE);
+                TopicUnsubsc.setVisibility(View.VISIBLE);
+
+                if (listViewItem.isTopicActivation())
+                    TopicActivation.setBackgroundResource(R.drawable.subsc_state);
+                else
+                    TopicActivation.setBackgroundResource(R.drawable.unsubsc_state);
+
+                TopicActivation.setOnClickListener(new Button.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (listViewItem.isTopicActivation()) {
+                            listViewItem.setTopicActivation(false);
+                            deactivateSubscription(listViewItem.getTopicName());
+                            titleTextView.setPaintFlags(titleTextView.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+                            titleTextView.setTextColor(Color.GRAY);
+                            TopicActivation.setBackgroundResource(R.drawable.unsubsc_state);
+                        } else {
+                            listViewItem.setTopicActivation(true);
+                            activateSubscription(listViewItem.getTopicName());
+                            titleTextView.setPaintFlags(titleTextView.getPaintFlags() ^ Paint.STRIKE_THRU_TEXT_FLAG);
+                            titleTextView.setTextColor(Color.BLACK);
+                            TopicActivation.setBackgroundResource(R.drawable.subsc_state);
+                        }
+                    }
+                });
+
+                TopicUnsubsc.setOnClickListener(new Button.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        deactivateSubscription(listViewItem.getTopicName());
+                        listViewItemList.remove(pos);
+                        notifyDataSetChanged();
+                    }
+                });
+            }
+        } else {
+            titleTextView.setText("");
             TopicActivation.setVisibility(View.INVISIBLE);
             TopicUnsubsc.setVisibility(View.INVISIBLE);
-        } else {
-            if (listViewItem.isTopicActivation())
-                TopicActivation.setBackgroundResource(R.drawable.subsc_state);
-            else
-                TopicActivation.setBackgroundResource(R.drawable.unsubsc_state);
-
-            TopicActivation.setOnClickListener(new Button.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (listViewItem.isTopicActivation()) {
-                        listViewItem.setTopicActivation(false);
-                        deactivateSubscription(listViewItem.getTopicName());
-                        titleTextView.setPaintFlags(titleTextView.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-                        titleTextView.setTextColor(Color.GRAY);
-                        TopicActivation.setBackgroundResource(R.drawable.unsubsc_state);
-                    } else {
-                        listViewItem.setTopicActivation(true);
-                        activateSubscription(listViewItem.getTopicName());
-                        titleTextView.setPaintFlags(titleTextView.getPaintFlags() ^ Paint.STRIKE_THRU_TEXT_FLAG);
-                        titleTextView.setTextColor(Color.BLACK);
-                        TopicActivation.setBackgroundResource(R.drawable.subsc_state);
-                    }
-                }
-            });
-
-            TopicUnsubsc.setOnClickListener(new Button.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    deactivateSubscription(listViewItem.getTopicName());
-                    listViewItemList.remove(pos);
-                    notifyDataSetChanged();
-                }
-            });
         }
 
         return convertView;

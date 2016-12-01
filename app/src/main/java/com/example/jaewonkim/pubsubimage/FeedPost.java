@@ -16,24 +16,28 @@ public class FeedPost {
     private static final String TAG = "FeedPost";
 
     private static final String JSON_NAME_ID = "id";
+    private static final String JSON_NAME_PUBLISHED_TIME = "published_time";
     private static final String JSON_NAME_IMAGE_URL = "image_url";
     private static final String JSON_NAME_CONTENT = "content";
 
     private static final HashMap<UUID, FeedPost> postMap = new HashMap<>();
 
     public UUID id;
+    public String publishedTime;
     public URL imageUrl;
     public String content;
 
-    public FeedPost(UUID id, URL imageUrl, String content) {
+    public FeedPost(UUID id, String publishedTime, URL imageUrl, String content) {
         this.id = id;
+        this.publishedTime = publishedTime;
         this.imageUrl = imageUrl;
         this.content = content;
     }
 
-    public FeedPost(UUID id, String imageUrl, String content) {
+    public FeedPost(UUID id, String publishedTime, String imageUrl, String content) {
         try {
             this.id = id;
+            this.publishedTime = publishedTime;
             this.imageUrl = new URL(imageUrl);
             this.content = content;
         } catch (MalformedURLException e) {
@@ -45,6 +49,7 @@ public class FeedPost {
     public FeedPost(JSONObject json) {
         try {
             id = UUID.fromString(json.getString(JSON_NAME_ID));
+            publishedTime = json.getString(JSON_NAME_PUBLISHED_TIME);
             imageUrl = new URL(json.getString(JSON_NAME_IMAGE_URL));
             content = json.getString(JSON_NAME_CONTENT);
         } catch (JSONException e) {
@@ -59,6 +64,7 @@ public class FeedPost {
         try {
             JSONObject json = new JSONObject();
             json.put(JSON_NAME_ID, id.toString());
+            json.put(JSON_NAME_PUBLISHED_TIME, publishedTime);
             json.put(JSON_NAME_IMAGE_URL, imageUrl.toString());
             json.put(JSON_NAME_CONTENT, content);
             return json;

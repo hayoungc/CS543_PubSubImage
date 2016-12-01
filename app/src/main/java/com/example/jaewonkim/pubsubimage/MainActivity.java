@@ -34,12 +34,12 @@ public class MainActivity extends TabActivity {
         //tab.setup();
 
         TabHost.TabSpec spec1 = mTab.newTabSpec("Subscribe");
-        spec1.setIndicator("Subscribe");
+        spec1.setIndicator(getString(R.string.tab_subscribe));
         spec1.setContent(new Intent(this, SubActivity.class));
         mTab.addTab(spec1);
 
         TabHost.TabSpec spec2 = mTab.newTabSpec("Publish");
-        spec2.setIndicator("Publish");
+        spec2.setIndicator(getString(R.string.tab_publish));
         spec2.setContent(new Intent(this, PubActivity.class));
         mTab.addTab(spec2);
 

@@ -19,12 +19,14 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         CardView mCardView;
+        TextView mPublishedTime;
         ImageView mImage;
         TextView mText;
 
         public ViewHolder(CardView cv) {
             super(cv);
             mCardView = cv;
+            mPublishedTime = (TextView) cv.findViewById(R.id.published_time_view);
             mImage = (ImageView) cv.findViewById(R.id.feed_image_view);
             mText = (TextView) cv.findViewById(R.id.feed_text_view);
         }
@@ -56,6 +58,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
 
         FeedPost post = mPosts.get(position);
 
+        holder.mPublishedTime.setText(post.publishedTime);
         holder.mText.setText(post.content);
 
         ImageView imgView = holder.mImage;
@@ -64,8 +67,8 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
             final BitmapWorkerTask task = new BitmapWorkerTask(imgView);
             final AsyncDrawable asyncDrawable =
                     new AsyncDrawable(imgView.getResources(), null, task);
-            imgView.setImageDrawable(asyncDrawable);
             task.execute(imageUrl);
+            imgView.setImageDrawable(asyncDrawable);
         }
     }
 

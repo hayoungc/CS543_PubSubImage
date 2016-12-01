@@ -14,24 +14,27 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:layout_marginBottom="16dp"
         android:orientation="horizontal">
 
         <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="2"
-            android:text="Topic"
-            android:textSize="13pt"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:text="Tag:"
+            android:textSize="24dp"
             android:gravity="center_vertical"/>
+
         <EditText
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="4"
-            android:id="@+id/TopicEditText"/>
-        <Button
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
             android:layout_weight="1"
+            android:textSize="24dp"
+            android:id="@+id/TopicEditText"/>
+
+        <Button
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:gravity="center_vertical"
             android:background="@drawable/add_topic"
             android:id="@+id/addSubscTopic"
             android:onClick="addSubscTopic"/>

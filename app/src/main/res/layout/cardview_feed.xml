@@ -14,18 +14,30 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
+
+        <TextView android:id="@+id/published_time_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/abc_text_size_body_1_material"
+            android:paddingLeft="16dp"
+            android:layout_marginTop="16dp" />
+
         <ImageView android:id="@+id/feed_image_view"
-                   android:layout_width="match_parent"
-                   android:layout_height="wrap_content"
-                   android:scaleType="fitCenter"/>
+                    android:layout_width="match_parent"
+                    android:src="@drawable/loading"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:scaleType="fitCenter"
+                    android:layout_gravity="center_horizontal"/>
+
         <TextView android:id="@+id/feed_text_view"
                   android:layout_width="match_parent"
                   android:layout_height="wrap_content"
                   android:textSize="@dimen/abc_text_size_body_1_material"
                   android:paddingLeft="16dp"
                   android:paddingRight="16dp"
-                  android:paddingTop="16dp"
-                  android:paddingBottom="24dp" />
+                  android:paddingTop="8dp"
+                  android:paddingBottom="16dp" />
     </LinearLayout>
 
 

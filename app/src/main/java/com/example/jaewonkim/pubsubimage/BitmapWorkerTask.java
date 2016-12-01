@@ -4,6 +4,8 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
+import android.view.View;
+import android.widget.LinearLayout.LayoutParams;
 import android.util.Log;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -30,6 +32,7 @@ public class BitmapWorkerTask extends AsyncTask<URL, Void, Bitmap> {
 
     public BitmapWorkerTask(ImageView imgView) {
         imgViewRef = new WeakReference<>(imgView);
+
     }
 
     // Set the sample width of bitmaps.
@@ -64,7 +67,7 @@ public class BitmapWorkerTask extends AsyncTask<URL, Void, Bitmap> {
         }
     }
 
-    public static Bitmap decodeSampledBitmapFromUrl(URL url, int reqWidth) {
+    public Bitmap decodeSampledBitmapFromUrl(URL url, int reqWidth) {
         // Open an input stream with the URL.
         InputStream is;
         try {
@@ -102,6 +105,9 @@ public class BitmapWorkerTask extends AsyncTask<URL, Void, Bitmap> {
         options.inJustDecodeBounds = false;
         Bitmap sampled = BitmapFactory.decodeStream(is, null, options);
 
+        double ratio = 1.0 * sampled.getHeight() / sampled.getWidth();
+        Bitmap resized_bit = Bitmap.createScaledBitmap(sampled, 600, (int) (600 * ratio), true);
+
         // Close the input stream.
         try {
             is.close();
@@ -110,7 +116,7 @@ public class BitmapWorkerTask extends AsyncTask<URL, Void, Bitmap> {
             return null;
         }
 
-        return sampled;
+        return resized_bit;
     }
 
     public static int calculateInSampleSize(

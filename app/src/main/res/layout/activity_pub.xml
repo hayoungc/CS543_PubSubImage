@@ -17,51 +17,41 @@
         android:orientation="horizontal">
 
         <TextView
-            android:layout_width="0dp"
+            android:layout_width="130dp"
             android:layout_height="match_parent"
-            android:layout_weight="3"
-            android:text="Image URL"
-            android:textSize="10pt"
+            android:text="Image URL:"
+            android:textSize="24dp"
             android:gravity="center_vertical"/>
         <EditText
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="4"
-            android:textSize="10pt"
+            android:layout_weight="1"
+            android:textSize="24dp"
             android:id="@+id/ImgURL"/>
         <Button
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
             android:background="@drawable/add_topic"
             android:id="@+id/addPub"
             android:onClick="addPub"/>
 
     </LinearLayout>
 
-    <LinearLayout
+    <TextView
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="3"
-            android:text="Content"
-            android:textSize="10pt"
-            android:gravity="center_vertical"/>
-    </LinearLayout>
+        android:layout_height="30dp"
+        android:text="Content:"
+        android:textSize="24dp"
+        android:gravity="center_vertical"/>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="wrap_content"
         android:orientation="horizontal">
 
         <EditText
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="3"
+            android:layout_height="wrap_content"
             android:textSize="10pt"
             android:id="@+id/ContentText"/>
     </LinearLayout>
@@ -69,6 +59,7 @@
     <ListView
         android:id="@+id/pubList"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
 
 </LinearLayout>
