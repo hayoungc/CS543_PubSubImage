@@ -4,6 +4,7 @@ package com.example.jaewonkim.pubsubimage;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.BaseAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 import org.eclipse.paho.android.service.MqttAndroidClient;
@@ -30,8 +31,6 @@ public class SubActivity extends Activity{
 //        adapter.addItem("Topic A");
 //        adapter.addItem("Topic B");
 //        adapter.addItem("Topic C");
-
-
     }
 
     public void addSubscTopic(View v) {

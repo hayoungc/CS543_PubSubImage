@@ -21,6 +21,9 @@ public class PubActivity extends Activity {
     EditText ImgURL;
     EditText ContentText;
 
+    final String defaultURL = "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Google_2015_logo.svg/200px-Google_2015_logo.svg.png";
+    final String defaultContent = "#hello #world content #tag_anywhere";
+
     private MqttAndroidClient mMqttClient;
 
     @Override
@@ -30,15 +33,15 @@ public class PubActivity extends Activity {
 
         Intent intent = getIntent();
 
-        adapter = new ListViewAdapter();
+        adapter = new ListViewAdapter(ListViewAdapter.LISTVIEW_TYPE_PUBLISH);
         listView = (ListView)findViewById(R.id.pubList);
         listView.setAdapter(adapter);
 
         ImgURL = (EditText)findViewById(R.id.ImgURL);
         ContentText = (EditText)findViewById(R.id.ContentText);
 
-        ImgURL.setText("https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Google_2015_logo.svg/200px-Google_2015_logo.svg.png");
-        ContentText.setText("#hello #world content #tag_anywhere");
+        ImgURL.setText(defaultURL);
+        ContentText.setText(defaultContent);
 
     }
 
@@ -64,9 +67,9 @@ public class PubActivity extends Activity {
                     System.out.println("LOG: Publish failed because connection is lost");
                     break;
                 }
-
-                adapter.addItem(curTag + " : " + urlName);
             }
+
+            adapter.addItem(content);
         } catch (MqttException e) {
             System.err.println("Error Publishing: " + e.getMessage());
             e.printStackTrace();
@@ -78,7 +81,7 @@ public class PubActivity extends Activity {
                 adapter.notifyDataSetChanged();
             }
         });
-        ImgURL.setText("");
-        ContentText.setText("");
+        ImgURL.setText(defaultURL);
+        ContentText.setText(defaultContent);
     }
 }
