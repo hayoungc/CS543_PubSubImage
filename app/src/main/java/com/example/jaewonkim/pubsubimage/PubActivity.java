@@ -46,7 +46,7 @@ public class PubActivity extends Activity {
         ContentText = (EditText)findViewById(R.id.ContentText);
 
         ImgURL.setText(defaultURL);
-        ContentText.setText(defaultContent);
+        ContentText.setText("");
 
     }
 
@@ -87,7 +87,11 @@ public class PubActivity extends Activity {
             }
         });
         ImgURL.setText(defaultURL);
-        ContentText.setText(defaultContent);
+        ContentText.setText("");
+    }
+
+    public void cancel_topic(View v) {
+        ImgURL.setText("");
     }
 
     public static String getCurrentTimeStamp() {

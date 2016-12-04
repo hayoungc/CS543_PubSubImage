@@ -31,7 +31,14 @@
         <Button
             android:layout_width="36dp"
             android:layout_height="36dp"
-            android:background="@drawable/add_topic"
+            android:background="@drawable/cancel_topic"
+            android:id="@+id/erasePub"
+            android:onClick="cancel_topic"/>
+        <Button
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:background="@drawable/pub_msg"
+            android:layout_marginLeft="5dp"
             android:id="@+id/addPub"
             android:onClick="addPub"/>
 
