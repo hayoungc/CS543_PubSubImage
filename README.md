@@ -40,3 +40,12 @@ Then, apk files (for debug and release, unsigned) will be created under
 If you don't have physical Android device to test this app, we recommend you to
 use [GenyMotion](https://www.genymotion.com/) to build a virtual Android device
 and run this app.
+
+## MQTT broker
+
+We use [HBMQTT](https://github.com/beerfactory/hbmqtt/) to run a MQTT broker.
+To run HBMQTT broker, install `hbmqtt` with `pip` and run `hbmqtt` on your
+shell. It is highly recommended to create a virtual environment for HBMQTT
+installation, using tools like `pyenv` and `virtualenv`.
+[Read the document](http://hbmqtt.readthedocs.io/en/latest/quickstart.html) of
+HBMQTT for installing HBMQTT and running its broker.
