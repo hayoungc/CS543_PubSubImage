@@ -9,7 +9,8 @@ import android.content.Context;
  */
 
 public class MqttClientManager {
-    private static String MQTT_SERVER_URI = "tcp://iot.eclipse.org:1883";
+    // MQTT broker running on Sanggyu's computer in his dorm.
+    private static String MQTT_SERVER_URI = "tcp://110.76.84.177:1883";
     private static MqttAndroidClient mMqttClient = null;
 
     public static void setContext(Context c) {
